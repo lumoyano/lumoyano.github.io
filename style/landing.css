@@ -37,7 +37,6 @@ body{
 .anchors a{
     line-height: 40px;
     color: white;
-    text-decoration: none;
 }
 
 .body-center {  
@@ -88,6 +87,13 @@ body{
     color: white;
     padding-top: 50px;
     margin-top: 100px;
+}
+
+.icons {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    margin: 0 10px 0 10px;
 }
 
 .text {
