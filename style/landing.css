@@ -37,6 +37,7 @@ body{
 .anchors a{
     line-height: 40px;
     color: white;
+    text-decoration: none;
 }
 
 .body-center {  
@@ -67,7 +68,8 @@ body{
     justify-content: center;
     padding: 50px;
     background-color: white;
-    animation-duration: transform 1s;
+    transition: transform 0.5s;
+    transition-timing-function: ease-in-out;
 }
 .projectDiv img {
     width: 200px;
