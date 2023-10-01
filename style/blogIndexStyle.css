@@ -1,0 +1,11 @@
+.blog {
+    background-color: #3194A8; 
+    color: white;
+}
+a {
+    text-decoration: none;
+    color: white;
+}
+a:hover {
+    color: #40C2DB;
+}
