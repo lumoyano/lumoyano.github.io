@@ -77,12 +77,15 @@ body{
     object-fit: cover;
 }
 
+.projectDiv ul li, p{
+    font-size: 14px;
+}
+
 .projectDiv:hover {
     transform: scale(1.05);
 }
 
 .projectDiv a {
-    text-decoration: none;
     color: black;
 }
 
