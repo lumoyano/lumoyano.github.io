@@ -11,6 +11,11 @@
             text-align: justify;
             font-size: 16px;
         }
+        img {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+        }
     </style>
 </head>
 <body>
@@ -52,6 +57,7 @@
             it, but this one actually achieved it. SQLite was a nice and light (see what I did there?) approach because of the 
             interface and "drag and drop" aspect of it. Seeing the SQL output as I edited the table was marvelous, and with no 
             crash course at all, I was typing tables into existence just like that. </p>
+            <img src="/media/pictures/blogs/post1/SQLpicture.png">
         <p>
             In the end, we create a blockchain.db file, which holds the BlockChain and Transactions tables. For the sake of 
             security, the Wallet.db object was left as a standalone table. Using JDBC for my first time, I later came to add 
@@ -70,7 +76,8 @@
             familiarity with using libs after implementing SQLite, I was ready to use it. The next step was to download SceneBuilder, 
             a drag-and-drop interface to create GUIs using specifically JavaFX. It had somewhat of a learning curve, but considering 
             the incredibly simple design we are making that was no problem at all. All that's left is to create Controller 
-            respectives with more promises of methods to come, ignore some red flags, and pray for the best to come.</p><br>
+            respectives with more promises of methods to come, ignore some red flags, and pray for the best to come.</p>
+            <img src="/media/pictures/blogs/post1/javafxsample.png"><img src="/media/pictures/blogs/post1/menuSample.png"><br><br>
         
         <h3>Multithreading and Service Layer</h3>
         <p>
@@ -100,6 +107,7 @@
         <p>
             Back to our key dilemma. Since the validation process uses public keys, all instances to be fixed only needed the 
             X509 Encoded Key object in order to work. The fixed final code looks the following:</p>
+            <img src="/media/pictures/blogs/post1/DSAsample.png">
         <p>
             First, we need the KeyFactory object, which is created by specifying the Algorithm that will be used to deserialize 
             our byte array into an actual key. With that ready and on the side we create the X509EncodedKeySpec object. This 
@@ -131,6 +139,7 @@
             just never thought about resuming the process after running into red text called by the most often used printStackTrace 
             all throughout the scope of the project. The program had been working for a long time, but in my oversight, I ended up 
             fixing many minor mistakes I made that led to not very significant errors or bugs.</p>
+            <img src="/media/pictures/blogs/post1/errorOutput.png"><img src="/media/pictures/blogs/post1/exceptionHandler.png">
         <p>I don't have an outro or conclusion to make other than all of the above text, but if you want to look into some of the 
             resources I used, here are the links to Spiro's book and an article on Medium by user Kass, who already went through 
             the trouble of putting together a nice list of free resources to dive right into the world of Blockchain.</p><br><hr>
