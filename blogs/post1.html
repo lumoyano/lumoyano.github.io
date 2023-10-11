@@ -6,6 +6,18 @@
     <title>Post header</title>
     <link rel="stylesheet" href="\style\landing.css">
     <link rel="stylesheet" href="\media/fonts/fontkit/stylesheet.css">
+    <link rel="stylesheet" href="\style/blogIndexStyle.css">
+    <style>
+        p {
+            text-align: justify;
+            font-size: 16px;
+        }
+        img {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+        }
+    </style>
 </head>
 <body>
     <div class="header">
@@ -15,14 +27,125 @@
     </div>
     <div class="body-center" style="background-color: #3194A8; color: white;">
         <div>
-            <h1>Title - subtitle</h1>
-            <h4 style="text-align: right; font-style: italic;">Month day, year</h4>
+            <h1>Blockchain in a nutshell</h1>
+            <h4 style="text-align: right; font-style: italic;">October 10th, 2023</h4>
         </div>
         <hr><br>
+        <p>I recently came to what I believe is the end (for now) of a project I've been working on for somewhere around 4-5 
+            months. Spiro Buzharovski's book "Introducing Blockchain with Java" caught my eye last summer at my local library, 
+            so I made sure to come back and snatch it. What followed was very little reading and significant amounts of 
+            coding with my own hands. It was perfect! <br>
+            The final product is thus: </p><br>   
+
+        <h3>Model</h3>
         <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
-        </p>
-        <br><hr>
+            First, we design the Model for everything, consisting of the Block, Transaction, and Wallet classes. Two 
+            major problems were made known as I made my slow progress through the respective chapter of this part: 
+        <li>
+            1 Although mostly written in vanilla Java, I ran for the first time into the Sun.Security package, which became 
+            my constant companion and I'll explain more about it later.</li> <br>
+        <li>
+            2 Following along the book felt a lot like my very poor intro to CS classes once again, where instead of following 
+            a method of incrementing existing, working code, to make it more complete, we instead just started on point A and 
+            pushed through all the way to point Z. In other words, left and right were methods and classes called which did not 
+            at the moment exist, and wouldn't exist for the dozens of hours to come before I made my way to their respective 
+            chapters. Anyone coding outside of Notepad can sympathize with how the developer's brain reacts to so much red on 
+            one single screen.</li></p><br>
+
+        <h3>SQLite database</h3>
+        <p>
+            Oh the blessing of finally having a use for SQL. I had sought projects for a long time that would push me to learn 
+            it, but this one actually achieved it. SQLite was a nice and light (see what I did there?) approach because of the 
+            interface and "drag and drop" aspect of it. Seeing the SQL output as I edited the table was marvelous, and with no 
+            crash course at all, I was typing tables into existence just like that. </p>
+            <img src="/media/pictures/blogs/post1/SQLpicture.png">
+        <p>
+            In the end, we create a blockchain.db file, which holds the BlockChain and Transactions tables. For the sake of 
+            security, the Wallet.db object was left as a standalone table. Using JDBC for my first time, I later came to add 
+            the path to those into my program, as well as safety measures to CREATE TABLE IF NOT EXISTS wherever needed, ensuring 
+            that no Exception is thrown and however silly I may be, there will always be the right path to save our valuable 
+            virtual money.</p> <br>
+
+        <h3>JavaFX - GUI</h3>
+        <p>
+            I don't like creating GUIs in Java. It's one of my biggest reasons to move away from it. With this, I ran into the 
+            problem that when you plainly import the JavaFX package into your program, it is not found. A little bit of digging 
+            and we discover that it was removed from the JDK in 2018. With the JDK 11 being the first usable version of it these 
+            days, that wasn't much help. </p>
+        <p>
+            I found that Gluon made it open source and with a few downloads, a visit to project structure settings, and some 
+            familiarity with using libs after implementing SQLite, I was ready to use it. The next step was to download SceneBuilder, 
+            a drag-and-drop interface to create GUIs using specifically JavaFX. It had somewhat of a learning curve, but considering 
+            the incredibly simple design we are making that was no problem at all. All that's left is to create Controller 
+            respectives with more promises of methods to come, ignore some red flags, and pray for the best to come.</p>
+            <img src="/media/pictures/blogs/post1/javafxsample.png"><img src="/media/pictures/blogs/post1/menuSample.png"><br><br>
+        
+        <h3>Multithreading and Service Layer</h3>
+        <p>
+            Here we made a few threads that ran constantly in the background. My IDE wasn't happy with possible "busy-waiting" 
+            threads, but I am new to it and didn't dare experiment. We establish some local ports as a communication since going
+            online isn't very safe, and call it a day. This will prove not very efficient though, since running the program 
+            effectively means you have to instantiate the entire repository and update ports and paths in order to create peers 
+            that communicate back to you.</p>
+        <p>
+            The final step in the book is the nightmare-bringing service layer. I want to say that this is some of the most 
+            confusing, extensive code I've written. The WalletData class is a singleton one. All there is to it is the single 
+            field of Wallet, and the methods to return an instance of it. This is important because that way, our machine can 
+            only handle one wallet at a time. Because throughout the program we use instances of the wallet, it means only one 
+            gets created, and the rest of the time is spent calling back to it, wherever it may be stored. </p>
+        <p>
+            Most importantly though, this class established what would later be the solution to all of my fears. You see, sun.security used an 
+            object called DSAPublicKeyImpl. A visit to chatGPT would clarify that this takes in a byte array and returns the 
+            PublicKey for it. How to implement that on regular Java remained a mystery to me and the AI gods apparently, until we 
+            ran into the odd handling of public keys on the WalletData class. Here we learn that a KeyFactory object can be created 
+            using DSA, familiar to me now since SHA256withDSA has been a recurring statement within most classes. We learn that a 
+            public key uses an X509EncodedKeySpec object, while the public seems to use a PKCS8EncodedKeySpec. We also see on those 
+            lines that both are valid arguments to the keyFactory methods generatePublic/generatePrivate. </p>
+        <span style="font-size: 14px; font-style: italic; text-align: justify;">
+            Side note. IntelliJ makes amazing IDEs, and their in-text annotations were crucial for me to reverse engineer this 
+            implementation. Because it can point out in real time what types are needed and what types I am passing, I was able 
+            to sort of guess around until I ran into the right structure/syntax to use in this.</span>
+        <p>
+            Back to our key dilemma. Since the validation process uses public keys, all instances to be fixed only needed the 
+            X509 Encoded Key object in order to work. The fixed final code looks the following:</p>
+            <img src="/media/pictures/blogs/post1/DSAsample.png">
+        <p>
+            First, we need the KeyFactory object, which is created by specifying the Algorithm that will be used to deserialize 
+            our byte array into an actual key. With that ready and on the side we create the X509EncodedKeySpec object. This 
+            will usually hold a bite array, which is our "address" for Wallet objects, and "from" for Transactions. As the name 
+            denotes, this is an encoded version of the key, missing only the final step of decoding. One quick call to our keyFactory, 
+            which knows we are handling everything DSA, and we can pass the final PublicKey object into our signing method, which 
+            in the reference is used to stamp the sender onto the current Block. Breaking down the process into three different lines 
+            makes it much more digestible, especially since some statements are quite long at this point. </p>
+        <p>The rest of the service layer is too extensive to cover in a blog post and too complicated for me to go in depth. This 
+            isn't an educational page, but I'll list some good resources later.</p><br>
+
+        <h3>Build and debugging</h3>
+        <p>
+            Remember the issue with invoking methods that haven't been written yet? Well, it makes for incredible amounts of 
+            spelling errors, not to mention that I was writing this from a book, and the editor seems to forget that english 
+            rules don't matter in coding, but consistency does. Needless to say, I spent a while rewriting chunks of code and 
+            single calls, using Spiro's publicly available repo for the project as a reference. Speaking of Spiro, I was actually 
+            able to contact him and found the man incredibly responsive. As of today, he asked me for my repo in order to check 
+            some final issues I wasn't able to figure out on my own. He very clearly wrote the app himself, since with no 
+            significant conversation he correctly guessed exactly where I missed a statement that made the program crash. Called 
+            out by the pro himself, ouch! The most challenging aspect left was surprisingly the SQL queries. Since my IDE had no 
+            SQL helper embedded, I made quite a few mistakes as a beginner, missing commas instead of semicolons. I felt like a 
+            16-year-old in school again!</p>
+        <p>
+            Like I previously alluded to, I spent hours debugging this program in order not to embarrass myself again in front 
+            of its author. After a very frustrating day on the debugger, I decided to skip the errors. To my surprise, and demise, 
+            I had overlooked something very important. The program is very robust with its catch and exception statements, so after 
+            a successful build, I spent the next few days dealing with errors that didn't actually stop the program from running, I 
+            just never thought about resuming the process after running into red text called by the most often used printStackTrace 
+            all throughout the scope of the project. The program had been working for a long time, but in my oversight, I ended up 
+            fixing many minor mistakes I made that led to not very significant errors or bugs.</p>
+            <img src="/media/pictures/blogs/post1/errorOutput.png"><img src="/media/pictures/blogs/post1/exceptionHandler.png">
+        <p>I don't have an outro or conclusion to make other than all of the above text, but if you want to look into some of the 
+            resources I used, here are the links to Spiro's book and an article on Medium by user Kass, who already went through 
+            the trouble of putting together a nice list of free resources to dive right into the world of Blockchain. <br>
+            "Introducing Blockchain with Java" - found on Amazon or if you handle a PDF @ <a href="https://www.slideshare.net/LuisFeliciano23/introducing-blockchain-with-javapdf" target="_blank">Slideshare</a><br>
+            <a href="https://medium.com/programmers-blockchain/blockchain-development-mega-guide-5a316e6d10df" target="_blank">Blockchain Development - From Zero to Hero</a></p><br><hr>
     </div>
     <div class="footer" id="connect">
         <p>Author: Lucas Almeida - 2023 @Rexburg, ID <br> <br> Connect with me: <br></p>
