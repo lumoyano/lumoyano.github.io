@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Admin &#8211; Personal portfolio</title>
+	<atom:link href="/author/admin/feed" rel="self" type="application/rss+xml" />
+	<link>/</link>
+	<description></description>
+	<lastBuildDate>Thu, 02 May 2024 23:02:08 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.5.2</generator>
+	<item>
+		<title>&#8220;Hello world!&#8221; in WordPress?</title>
+		<link>/hello-world</link>
+					<comments>/hello-world#respond</comments>
+		
+		<dc:creator><![CDATA[Admin]]></dc:creator>
+		<pubDate>Mon, 29 Apr 2024 22:05:30 +0000</pubDate>
+				<category><![CDATA[Java]]></category>
+		<guid isPermaLink="false">/?p=1</guid>
+
+					<description><![CDATA[Welcome everyone! After getting over the pressure from other programmers of looking down on WordPress, I finally made the jump into it and to put the experience into simple words, the learning curve to WP is significantly less steep than that of JS libraries. As the oddball I am in the world of tech enthusiasts [&#8230;]]]></description>
+		
+					<wfw:commentRss>/hello-world/feed</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Blockchain in a nutshell</title>
+		<link>/blockchain-in-a-nutshell</link>
+					<comments>/blockchain-in-a-nutshell#respond</comments>
+		
+		<dc:creator><![CDATA[Admin]]></dc:creator>
+		<pubDate>Tue, 10 Oct 2023 22:51:32 +0000</pubDate>
+				<category><![CDATA[Java]]></category>
+		<guid isPermaLink="false">/?p=135</guid>
+
+					<description><![CDATA[I recently came to what I believe is the end (for now) of a project I&#8217;ve been working on for somewhere around 4-5 months. Spiro Buzharovski&#8217;s book &#8220;Introducing Blockchain with Java&#8221; caught my eye last summer at my local library, so I made sure to come back and snatch it. What followed was very little [&#8230;]]]></description>
+		
+					<wfw:commentRss>/blockchain-in-a-nutshell/feed</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>
